@@ -15,22 +15,21 @@ var questionArray = [{
 
 var timer;
 var count = 3
-// This triviaGame object will hold all game variables + logic
+// This triviaGame object will hold all game logic (include all variables time permitting)
 
 var triviaGame = {
     // Game Variables
     countdownTimer: 0,
+    currentQuestionCounter: 0,
 
-
-
-    // Game functions
+    // Game function runs on click
     startGameScreen: function () {
-        console.log("startGameScreen func running");
-        // clear start button 
+        // clear start button -- could use help with a different method here
         $("#start-div").remove();
         // call countDown function
         triviaGame.countDownFunc();
-
+        triviaGame.questionScreen();
+        
     },
     countDownFunc: function () {
         console.log("countDownFunc running");
@@ -50,14 +49,14 @@ var triviaGame = {
         if (count <= 0) {
             console.log("made it to count === 0");
             clearInterval(timer);
-            triviaGame.questionScreen();
+            // triviaGame.questionScreen(); moved this to line 31 but it's not working properly
         };
     },
 
     questionScreen: function () {
         console.log("We made it to the question screen!");
         // Update timer text to "Time reamining: count"
-        triviaGame.populateAnswerButtons();
+        triviaGame.populateQandA();
     },
 
     // correctAnswerScreen: function() {
@@ -72,37 +71,39 @@ var triviaGame = {
 
     // },
 
-    populateAnswerButtons: function () {
-        var questionArray = [{
-            "question": "What is 2 x 2?",
-            "choices": [2, 4, 8, "Threeve"],
-            "correctAnswer": 1
-        }];
+        // resetScreen: function() {
 
+        // }
+    // 
+    populateQandA: function () {
+        var questionArray = [{
+            question: "What is 2 x 2?",
+            choices: [2, 4, 8, "Threeve"],
+            correctAnswer: 1
+        }, {
+            question: "What is 2 - 2?",
+            choices: [2, 4, 0, "Threeve"],
+            correctAnswer: 2
+        }];  
+        // generate question
+        var displayQuestion = function() {
+            console.log("displayQuestionFunction");
+            $("#question-display").text(questionArray[triviaGame.currentQuestionCounter].question);
+        };
+        displayQuestion();
+        // generate buttons with answer text
         for (var i = 0; i < 4; i++) {
             var btn = $("<button>");
-            console.log("button text 1", questionArray[0].choices[i]);
-            console.log("button text 2", btn[0]);
-
-
-            btn.text(questionArray[0].choices[i]);
-            console.log("button text 3", btn);
+            btn.text(questionArray[triviaGame.currentQuestionCounter].choices[i]);
             btn.addClass("btn btn-lg btn-primary");
             $("#button-container").append(btn);
 
         }
+        // iterate through question array with a variable
+        this.currentQuestionCounter++;
     },
 
-
-
-
-
-
-
-
 };
-// sets up initial game screen
-// $("#start-button").on("click", triviaGame.startGameScreen);
 
 // on click initiate questionScreen
 $(document).on("click", "#start-button", triviaGame.startGameScreen);
