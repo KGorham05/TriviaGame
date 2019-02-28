@@ -8,11 +8,12 @@
 // on final screen, show number of correct and incorrect answers, and an option to restart the game without reloading the page
 
 var questionArray = [{
-    question: "What is 2 x 2?",
-    choices: [2, 4, 8, "Threeve"],
-    correctAnswer: 1
+    "question": "What is 2 x 2?",
+    "choices": [2, 4, 8, "Threeve"],
+    "correctAnswer": 1
 }];
 
+var timer;
 var count = 3
 // This triviaGame object will hold all game variables + logic
 
@@ -34,27 +35,29 @@ var triviaGame = {
     countDownFunc: function () {
         console.log("countDownFunc running");
         // create a timer counting down from 3 to 0 
-        var timer = setInterval(triviaGame.decrement, 1000);
+        timer = setInterval(triviaGame.decrement, 1000);
         // display timer
         $("#count-num").html("<h1>" + count + "</h1>");
         // call questionScreen function at 0 
-        if (count <= 0) {
-            console.log("made it to count === 0");
-            clearInterval(timer);
-            triviaGame.questionScreen();
-        };
+
 
     },
     // function for timer decreasing
     decrement: function () {
         console.log("made it into decrement function");
         count--;
-        $("#count-num").html("<h1>" + count + "</h1>")
+        $("#count-num").html("<h1>" + count + "</h1>");
+        if (count <= 0) {
+            console.log("made it to count === 0");
+            clearInterval(timer);
+            triviaGame.questionScreen();
+        };
     },
 
     questionScreen: function () {
         console.log("We made it to the question screen!");
-        populateAnswerButtons();
+        // Update timer text to "Time reamining: count"
+        triviaGame.populateAnswerButtons();
     },
 
     // correctAnswerScreen: function() {
@@ -70,12 +73,23 @@ var triviaGame = {
     // },
 
     populateAnswerButtons: function () {
+        var questionArray = [{
+            "question": "What is 2 x 2?",
+            "choices": [2, 4, 8, "Threeve"],
+            "correctAnswer": 1
+        }];
+
         for (var i = 0; i < 4; i++) {
             var btn = $("<button>");
-            btn.val(indexOf(questionArray.choices[i]));
-            btn.text(questionArray.choices[i]);
+            console.log("button text 1", questionArray[0].choices[i]);
+            console.log("button text 2", btn[0]);
+
+
+            btn.text(questionArray[0].choices[i]);
+            console.log("button text 3", btn);
             btn.addClass("btn btn-lg btn-primary");
             $("#button-container").append(btn);
+
         }
     },
 
