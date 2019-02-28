@@ -15,24 +15,28 @@
 <body>
     <div class="container">
         <!-- Header -->
-            <div class="row">
-                <h1>Trivia Time</h1>
-            </div>
-        <!-- Starting Screen -->
-            <div class="row">
+        <div class="row">
+            <h1>Trivia Time</h1>
+        </div>
+        <!-- Game Board -->
+        <div class="row" id="game-board">
+            <div id="start-div">
                 <button type="button" class="btn btn-lg btn-primary" id="start-button">Start Game</button>
             </div>
+            <div id="count-num"></div>
+
+
+
+
+        </div>
         <!-- Game Start Screen -->
-            <div class="row">
-                <div id="count-down"></div>
-                <div id="question"></div>
-                <div id="answers">
-                    <button type="button" class="btn btn-lg btn-primary" id="a-1">Answer 1</button>
-                    <button type="button" class="btn btn-lg btn-primary" id="a-2">Answer 2</button>
-                    <button type="button" class="btn btn-lg btn-primary" id="a-3">Answer 3</button>
-                    <button type="button" class="btn btn-lg btn-primary" id="a-4">Answer 4</button>
-                </div>
+        <div class="row">
+            <div id="count-down"></div>
+            <div id="question"></div>
+            <div id="button-container">
+
             </div>
+        </div>
         <!-- Footer -->
 
 
