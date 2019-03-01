@@ -13,41 +13,37 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="game-board">
         <!-- Header -->
         <div class="row">
-            <h1>Trivia Time</h1>
+            <div class="col-sm-12">
+                <h1 class="text-center">Trivia Time</h1>
+            </div>
         </div>
-        <!-- Game Board -->
-        <div class="row" id="game-board">
+
+        <div class="row">
             <div class="col-sm-12">
                 <div id="start-div">
                     <button type="button" class="btn btn-lg btn-primary" id="start-button">Start Game</button>
                 </div>
-                <div class="row" id="result-text"></div>
-                <div class="row" id="score board">
-                    <div class="col-sm-6" id="numCorrect"></div>
-                    <div class="col-sm-6" id="numIncorrect"></div>
-                </div>
-                <div id="count-num"></div>
-                <div class="col-sm-12">
-                    <h2 id="question-display"></h2>
-                </div>
-
-
-
-
+            </div>
+        </div>    
+            <div class="row" id="result-text"></div>
+            <div class="row" id="score board">
+                <div class="col-sm-6" id="numCorrect"></div>
+                <div class="col-sm-6" id="numIncorrect"></div>
+            </div>
+            <div id="count-num"></div>
+            <div class="col-sm-12">
+                <h2 id="question-display"></h2>
             </div>
 
-
-
-
-        </div>
+        
         <!-- Game Start Screen -->
         <div class="row">
             <div id="count-down"></div>
             <div id="question"></div>
-            <div class ="col-md-12" id="button-container">
+            <div class="col-sm-12" id="button-container">
 
             </div>
         </div>
