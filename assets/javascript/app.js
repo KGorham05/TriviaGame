@@ -19,44 +19,39 @@ var triviaGame = {
     currentQuestionCounter: 0,
     numCorrect: 0,
     numIncorrect: 0,
+    correctSolutionIndex: 0,
 
     // Game function runs on click
     startGameScreen: function () {
         // clear start button -- could use help with a different method here
         $("#start-div").empty();
-        $("#count-num").html("<h1>Time Remaining: " + count + "</h1>")
         // call countDown function
         // triviaGame.countDownFunc(); adding this functionailty to the questionScreen function
         triviaGame.questionScreen();
         // make buttons work -
-    // check if clicked button text is = correct answer 
-        // if so show result screen: Correct
-        // update correct/incorrect 
-    // else if clicked button text !== correct answer 
-        // show result screen: Incorrect!
-        // update correct/incorrect
-        $("button").on("click", function() {
+
+
+        $("button").on("click", function () {
             // how do I get the text on the button that was clicked 
-        //    console.log($(this).val);
-
+            console.log($(this).attr("value"));
+            // check if clicked button is the correct answer 
+            // if so show result screen: Correct
+            // update correct
+            if (parseInt($(this).attr("value")) === triviaGame.correctSolutionIndex) {
+                triviaGame.numCorrect++;
+                triviaGame.correctAnswerScreen();
+            } else {
+                // show result screen: Incorrect!
+                // update incorrect
+                triviaGame.numIncorrect++;
+                triviaGame.wrongAnswerScreen();
+            }
         });
-       
-
-
-    },
-    countDownFunc: function () {
-        console.log("countDownFunc running");
-        // create a timer counting down from 3 to 0 -- removing this for the time being
-        timer = setInterval(triviaGame.decrement, 1000);
-        // call questionScreen function at 0 
-        // triviaGame.questionScreen();
-
     },
     // function for timer decreasing
     decrement: function () {
-        console.log("made it into decrement function");
         count--;
-        $("#count-num").html("<h1>Time Remaining: " + count + "</h1>");
+        $("#count-num").html("<h2>Time Remaining: " + count + "</h2>");
         if (count <= 0) {
             console.log("made it to count === 0");
             clearInterval(timer);
@@ -70,30 +65,57 @@ var triviaGame = {
     },
 
     questionScreen: function () {
-        console.log("We made it to the question screen!");
         // start count down
+        $("#count-num").html("<h2>Time Remaining: " + count + "</h2>")
         timer = setInterval(triviaGame.decrement, 1000);
         // generate Q and A's
         triviaGame.populateQandA();
     },
 
-    // correctAnswerScreen: function() {
-
-    // },
-
-    // wrongAnswerScreen: function() {
-
-    // },
-
-    timeOutScreen: function () {
-        console.log("out of time!")
+    correctAnswerScreen: function () {
+        // remove question, answers, and timer from the screen
+        $("#button-container").empty();
+        $("#question-display").empty();
+        $("#count-num").empty();
+        // clearInterval on counter and reset count to 7
+        clearInterval(timer);
+        count = 7;
+        // display text that says "Correct!"
+        $("#result-text").html("<h1>Correct!</h1>");
+        // display numCorrect/numIncorrect on screen
+        $("#numCorrect").html("<h1>" + triviaGame.numCorrect + "</h1>");
+        $("#numIncorrect").html("<h1>" + triviaGame.numIncorrect + "</h1>");
+        // after 5 seconds, generate a new question (time permitting have a button or countdown to gen next question)
+        setTimeout(triviaGame.questionScreen, 5000);
     },
 
-    // resetScreen: function() {
+    wrongAnswerScreen: function () {
+        alert("incorrect!")
+        // remove question and answers from the screen
+        // remove counter from the screen
+        // display text that says "Correct!"
+        // display numCorrect/numIncorrect on screen 
+        // after 5 seconds, generate a new question (time permitting have a button or countdown to gen next question)
+    },
+
+    timeOutScreen: function () {
+        alert("out of time!");
+        // remove question and answers from the screen
+        // remove counter from the screen
+        // display text that says "Correct!"
+        // display numCorrect/numIncorrect on screen 
+        // after 5 seconds, generate a new question (time permitting have a button or countdown to gen next question)
+    },
+
+    // gameOverScreen: function() {
 
     // }
     // 
     populateQandA: function () {
+        // clear result screen
+        $("#result-text").empty();
+        $("#numCorrect").empty();
+        $("#numIncorrect").empty();
         var questionArray = [{
             question: "What is 2 x 2?",
             choices: [2, 4, 8, "Threeve"],
@@ -112,16 +134,18 @@ var triviaGame = {
         // generate buttons with answer text
         for (var i = 0; i < 4; i++) {
             var btn = $("<button>");
-             btn.attr("value", "1");
-            console.log(btn.attr("val"));
-           
+            btn.attr("value", i);
+            console.log("button value = " + btn.attr("value"));
             btn.text(questionArray[triviaGame.currentQuestionCounter].choices[i]);
             btn.addClass("btn btn-lg btn-primary");
             $("#button-container").append(btn);
 
         }
         // iterate through question array with a variable
+        this.correctSolutionIndex = questionArray[triviaGame.currentQuestionCounter].correctAnswer;
         this.currentQuestionCounter++;
+
+        console.log("Index of Current Question Solution = " + questionArray[triviaGame.currentQuestionCounter - 1].correctAnswer);
     },
 
 };
