@@ -36,9 +36,10 @@ var triviaGame = {
         // show result screen: Incorrect!
         // update correct/incorrect
         $("button").on("click", function() {
-            if 
+            // how do I get the text on the button that was clicked 
+        //    console.log($(this).val);
 
-        })
+        });
        
 
 
@@ -111,6 +112,9 @@ var triviaGame = {
         // generate buttons with answer text
         for (var i = 0; i < 4; i++) {
             var btn = $("<button>");
+             btn.attr("value", "1");
+            console.log(btn.attr("val"));
+           
             btn.text(questionArray[triviaGame.currentQuestionCounter].choices[i]);
             btn.addClass("btn btn-lg btn-primary");
             $("#button-container").append(btn);
