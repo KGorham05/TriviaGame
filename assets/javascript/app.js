@@ -26,16 +26,6 @@ var triviaGame = {
         // clear start button -- could use help with a different method here
         $("#start-div").empty();
         triviaGame.questionScreen();
-        // $("button").on("click", function () { 
-        //     console.log($(this).attr("value"));
-        //     if (parseInt($(this).attr("value")) === triviaGame.correctSolutionIndex) {
-        //         triviaGame.numCorrect++;
-        //         triviaGame.correctAnswerScreen();
-        //     } else {
-        //         triviaGame.numIncorrect++;
-        //         triviaGame.wrongAnswerScreen();
-        //     }
-        // });
     },
     // function for timer decreasing
     decrement: function () {
@@ -50,21 +40,27 @@ var triviaGame = {
     },
 
     questionScreen: function () {
-        // start count down
-        $("#count-num").html("<h2>Time Remaining: " + count + "</h2>")
-        timer = setInterval(triviaGame.decrement, 1000);
-        // generate Q and A's
-        triviaGame.populateQandA();
-        $("button").on("click", function () { 
-            console.log($(this).attr("value"));
-            if (parseInt($(this).attr("value")) === triviaGame.correctSolutionIndex) {
-                triviaGame.numCorrect++;
-                triviaGame.correctAnswerScreen();
-            } else {
-                triviaGame.numIncorrect++;
-                triviaGame.wrongAnswerScreen();
-            }
-        });
+        if (triviaGame.numCorrect + triviaGame.numIncorrect === 6) {
+            triviaGame.gameOverScreen();
+        } else {
+            // start count down
+            $("#count-num").html("<h2>Time Remaining: " + count + "</h2>")
+            timer = setInterval(triviaGame.decrement, 1000);
+            // generate Q and A's
+            triviaGame.populateQandA();
+            $("button").on("click", function () {
+                console.log($(this).attr("value"));
+                if (parseInt($(this).attr("value")) === triviaGame.correctSolutionIndex) {
+                    triviaGame.numCorrect++;
+                    triviaGame.correctAnswerScreen();
+                } else {
+                    triviaGame.numIncorrect++;
+                    triviaGame.wrongAnswerScreen();
+                }
+            });
+        }
+
+
     },
 
     correctAnswerScreen: function () {
@@ -104,17 +100,24 @@ var triviaGame = {
         $("#count-num").empty();
         clearInterval(timer);
         count = 7;
-        // display text that says "Out of time!"
         $("#result-text").html("<h1>Out of time!</h1>");
-        // display numCorrect/numIncorrect on screen
         $("#numCorrect").html("<h1>" + triviaGame.numCorrect + "</h1>");
         $("#numIncorrect").html("<h1>" + triviaGame.numIncorrect + "</h1>");
-        setTimeout(triviaGame.questionScreen, 4000);
+        setTimeout(triviaGame.questionScreen, 3000);
     },
 
-    // gameOverScreen: function() {
-
-    // }
+    gameOverScreen: function () {
+        // remove question, answers, and timer from the screen
+        $("#button-container").empty();
+        $("#question-display").empty();
+        $("#count-num").empty();
+        clearInterval(timer);
+        $("#result-text").html("<h1>Game Over</h1>");
+        // create a new div for this
+        $("#result-text").append("<h1> Final Score</h1>");
+        $("#numCorrect").html("<h1>" + triviaGame.numCorrect + "</h1>");
+        $("#numIncorrect").html("<h1>" + triviaGame.numIncorrect + "</h1>");
+    },
     // 
     populateQandA: function () {
         // clear result screen
@@ -129,7 +132,40 @@ var triviaGame = {
             question: "What is 2 - 2?",
             choices: [2, 4, 0, "Threeve"],
             correctAnswer: 2
-        }];
+        }, {
+            question: "What is 2 x 2?",
+            choices: [2, 4, 8, "Threeve"],
+            correctAnswer: 1
+        }, {
+            question: "What is 2 - 2?",
+            choices: [2, 4, 0, "Threeve"],
+            correctAnswer: 2
+        }, {
+            question: "What is 2 x 2?",
+            choices: [2, 4, 8, "Threeve"],
+            correctAnswer: 1
+        }, {
+            question: "What is 2 - 2?",
+            choices: [2, 4, 0, "Threeve"],
+            correctAnswer: 2
+        }, {
+            question: "What is 2 x 2?",
+            choices: [2, 4, 8, "Threeve"],
+            correctAnswer: 1
+        }, {
+            question: "What is 2 - 2?",
+            choices: [2, 4, 0, "Threeve"],
+            correctAnswer: 2
+        }, {
+            question: "What is 2 x 2?",
+            choices: [2, 4, 8, "Threeve"],
+            correctAnswer: 1
+        }, {
+            question: "What is 2 - 2?",
+            choices: [2, 4, 0, "Threeve"],
+            correctAnswer: 2
+        }
+        ];
         // generate question
         var displayQuestion = function () {
             console.log("displayQuestionFunction");
@@ -142,7 +178,7 @@ var triviaGame = {
             btn.attr("value", i);
             console.log("button value = " + btn.attr("value"));
             btn.text(questionArray[triviaGame.currentQuestionCounter].choices[i]);
-            btn.addClass("btn btn-lg btn-primary");
+            btn.addClass("btn btn-lg btn-primary btn-block");
             $("#button-container").append(btn);
 
         }
