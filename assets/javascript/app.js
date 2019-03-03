@@ -65,7 +65,6 @@ var triviaGame = {
 
     // Game function runs on click
     startGameScreen: function () {
-        // clear start button -- could use help with a different method here
         $("#start-div").empty();
         triviaGame.questionScreen();
     },
@@ -82,7 +81,7 @@ var triviaGame = {
     },
 
     questionScreen: function () {
-        if (triviaGame.numCorrect + triviaGame.numIncorrect === 6) {
+        if (triviaGame.numCorrect + triviaGame.numIncorrect === 3) {
             triviaGame.gameOverScreen();
         } else {
             // start count down
@@ -106,46 +105,50 @@ var triviaGame = {
     },
 
     correctAnswerScreen: function () {
-        // remove question, answers, and timer from the screen
+
         triviaGame.clearAndReset();
         // display text that says "Correct!"
         $("#result-text").html("<h1>Correct!</h1>");
         // display numCorrect/numIncorrect on screen
-        triviaGame.displayNumCorrect();
-        triviaGame.displayNumIncorrect();
-        setTimeout(triviaGame.questionScreen, 4000);
+        triviaGame.displayScore();
+        setTimeout(triviaGame.questionScreen, 2000);
     },
 
     wrongAnswerScreen: function () {
-        // remove question, answers, and timer from the screen
         triviaGame.clearAndReset();
         // display text that says "Incorrect!"
         $("#result-text").html("<h1>Incorrect!</h1>");
         // display numCorrect/numIncorrect on screen
-        triviaGame.displayNumCorrect();
-        triviaGame.displayNumIncorrect();
-        setTimeout(triviaGame.questionScreen, 4000);
+        triviaGame.displayScore(); 
+        triviaGame.displayCorrectAnswer();
+        setTimeout(triviaGame.questionScreen, 2000);
     },
 
     timeOutScreen: function () {
-        // remove question, answers, and timer from the screen
         triviaGame.clearAndReset();
         $("#result-text").html("<h1>Out of time!</h1>");
         triviaGame.displayCorrectAnswer();
-        triviaGame.displayNumCorrect();
-        triviaGame.displayNumIncorrect();
-        setTimeout(triviaGame.questionScreen, 3000);
+        triviaGame.displayScore();
+        setTimeout(triviaGame.questionScreen, 2000);
     },
 
     gameOverScreen: function () {
-        // remove question, answers, and timer from the screen
         $("#button-container").empty();
         $("#question-display").empty();
         $("#count-num").empty();
         clearInterval(timer);
         $("#result-text").html("<h1>Game Over! Your Final Score was: </h1>");
-        triviaGame.displayNumCorrect();
-        triviaGame.displayNumIncorrect();
+        triviaGame.displayScore();
+        // create a button - 
+        var startBtn = $("<button>");
+        startBtn.attr("class", "btn btn-lg btn-primary");
+        startBtn.attr("id", "restart-button");
+        startBtn.text("Restart Game")
+        $("#question-display").append(startBtn);
+        // add it to the page 
+        // add on click event if I need to?
+        $(document).on("click", "#restart-button", triviaGame.startGameScreen);
+      
     },
     
     populateQandA: function () {
@@ -175,11 +178,8 @@ var triviaGame = {
         this.currentQuestionCounter++;
     },
 
-    displayNumCorrect: function () {
+    displayScore: function () {
         $("#numCorrect").html("<h1>Correct: " + triviaGame.numCorrect + "</h1>");
-    },
-
-    displayNumIncorrect: function () {
         $("#numIncorrect").html("<h1>Incorrect: " + triviaGame.numIncorrect + "</h1>");
     },
 
@@ -192,7 +192,7 @@ var triviaGame = {
     },
 
     displayCorrectAnswer: function() {
-        $("#result-text").append("The correct answer was ");
+        $("#result-text").append("The correct answer was "+ triviaGame.questionArray[triviaGame.currentQuestionCounter-1].choices[triviaGame.questionArray[triviaGame.currentQuestionCounter-1].correctAnswer]);
     },
 
 
