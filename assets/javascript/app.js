@@ -10,7 +10,7 @@
 
 
 var timer;
-var count = 7
+var count = 10;
 // This triviaGame object will hold all game logic (include all variables time permitting)
 
 var triviaGame = {
@@ -48,6 +48,7 @@ var triviaGame = {
 
     // Game function runs on click
     startGameScreen: function () {
+        console.log("start game screen function");
         $("#start-div").empty();
         triviaGame.questionScreen();
     },
@@ -64,7 +65,7 @@ var triviaGame = {
     },
 
     questionScreen: function () {
-        if (triviaGame.numCorrect + triviaGame.numIncorrect === 6) {
+        if (triviaGame.numCorrect + triviaGame.numIncorrect === 2) {
             triviaGame.gameOverScreen();
         } else {
             // start count down
@@ -126,10 +127,10 @@ var triviaGame = {
         var startBtn = $("<button>");
         startBtn.attr("class", "btn btn-lg btn-primary");
         startBtn.attr("id", "restart-button");
-        startBtn.text("Restart Game")
+        startBtn.text("Restart Game");
         $("#question-display").append(startBtn);
         // this on click event isn't working 
-        $(document).on("click", "#restart-button", triviaGame.startGameScreen);
+        $(document).on("click", "#restart-button", triviaGame.resetGame);
       
     },
     
@@ -177,7 +178,21 @@ var triviaGame = {
         $("#result-text").append("The correct answer was "+ triviaGame.questionArray[triviaGame.currentQuestionCounter-1].choices[triviaGame.questionArray[triviaGame.currentQuestionCounter-1].correctAnswer]);
     },
 
-
+    resetGame: function() {
+        $("#question-display").empty();
+        $("#result-text").empty();
+        $("#numCorrect").empty();
+        $("#numIncorrect").empty();
+        $("#button-container").empty();
+        triviaGame.countdownTimer = 0;
+        triviaGame.currentQuestionCounter = 0;
+        triviaGame.numCorrect = 0;
+        triviaGame.numIncorrect = 0;
+        triviaGame.correctSolutionIndex = 0;
+        count = 10;
+        clearInterval(timer);
+        triviaGame.startGameScreen();
+    },
 
 };
 
