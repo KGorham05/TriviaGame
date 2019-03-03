@@ -65,7 +65,7 @@ var triviaGame = {
     },
 
     questionScreen: function () {
-        if (triviaGame.numCorrect + triviaGame.numIncorrect === 3) {
+        if (triviaGame.numCorrect + triviaGame.numIncorrect === 6) {
             triviaGame.gameOverScreen();
         } else {
             // start count down
