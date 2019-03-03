@@ -21,47 +21,30 @@ var triviaGame = {
     numIncorrect: 0,
     correctSolutionIndex: 0,
     questionArray: [{
-        question: "What is 2 x 2?",
-        choices: [2, 4, 8, "Threeve"],
+        question: "What star is at the center of our universe?",
+        choices: ["Nicolas Cage", "The Sun", "Earth", "Alpha Centauri"],
         correctAnswer: 1
     }, {
-        question: "What is 2 - 2?",
-        choices: [2, 4, 0, "Threeve"],
+        question: "Which planet is known as the Morning Star or the Evening Star?",
+        choices: ["Mars", "Jupiter", "Mercury", "Venus"],
+        correctAnswer: 3
+    }, {
+        question: "How much time does it take for the sun's rays to reach earth?",
+        choices: ["8 minutes", "8 days", "8 hours", "8 years"],
+        correctAnswer: 0
+    }, {
+        question: "Which planet is nearest to the Earth?",
+        choices: ["The Moon", "Mars", "Venus", "Jupiter"],
         correctAnswer: 2
     }, {
-        question: "What is 2 x 2?",
-        choices: [2, 4, 8, "Threeve"],
-        correctAnswer: 1
+        question: "Which planet has the most moons?",
+        choices: ["Jupiter", "Neptune", "Mars", "Saturn"],
+        correctAnswer: 0
     }, {
-        question: "What is 2 - 2?",
-        choices: [2, 4, 0, "Threeve"],
+        question: "What is an astronaut employed by the Russian Federal Space Agency called?",
+        choices: ["an astronaut", "a spaceman", "a Kosmonavt", "yuhangyuan, or taikonauts"],
         correctAnswer: 2
-    }, {
-        question: "What is 2 x 2?",
-        choices: [2, 4, 8, "Threeve"],
-        correctAnswer: 1
-    }, {
-        question: "What is 2 - 2?",
-        choices: [2, 4, 0, "Threeve"],
-        correctAnswer: 2
-    }, {
-        question: "What is 2 x 2?",
-        choices: [2, 4, 8, "Threeve"],
-        correctAnswer: 1
-    }, {
-        question: "What is 2 - 2?",
-        choices: [2, 4, 0, "Threeve"],
-        correctAnswer: 2
-    }, {
-        question: "What is 2 x 2?",
-        choices: [2, 4, 8, "Threeve"],
-        correctAnswer: 1
-    }, {
-        question: "What is 2 - 2?",
-        choices: [2, 4, 0, "Threeve"],
-        correctAnswer: 2
-    }
-    ],
+    }],
 
     // Game function runs on click
     startGameScreen: function () {
@@ -81,7 +64,7 @@ var triviaGame = {
     },
 
     questionScreen: function () {
-        if (triviaGame.numCorrect + triviaGame.numIncorrect === 3) {
+        if (triviaGame.numCorrect + triviaGame.numIncorrect === 6) {
             triviaGame.gameOverScreen();
         } else {
             // start count down
@@ -111,7 +94,7 @@ var triviaGame = {
         $("#result-text").html("<h1>Correct!</h1>");
         // display numCorrect/numIncorrect on screen
         triviaGame.displayScore();
-        setTimeout(triviaGame.questionScreen, 2000);
+        setTimeout(triviaGame.questionScreen, 3000);
     },
 
     wrongAnswerScreen: function () {
@@ -121,7 +104,7 @@ var triviaGame = {
         // display numCorrect/numIncorrect on screen
         triviaGame.displayScore(); 
         triviaGame.displayCorrectAnswer();
-        setTimeout(triviaGame.questionScreen, 2000);
+        setTimeout(triviaGame.questionScreen, 3000);
     },
 
     timeOutScreen: function () {
@@ -129,7 +112,7 @@ var triviaGame = {
         $("#result-text").html("<h1>Out of time!</h1>");
         triviaGame.displayCorrectAnswer();
         triviaGame.displayScore();
-        setTimeout(triviaGame.questionScreen, 2000);
+        setTimeout(triviaGame.questionScreen, 3000);
     },
 
     gameOverScreen: function () {
@@ -145,8 +128,7 @@ var triviaGame = {
         startBtn.attr("id", "restart-button");
         startBtn.text("Restart Game")
         $("#question-display").append(startBtn);
-        // add it to the page 
-        // add on click event if I need to?
+        // this on click event isn't working 
         $(document).on("click", "#restart-button", triviaGame.startGameScreen);
       
     },
