@@ -112,9 +112,9 @@ var triviaGame = {
         $("#question-display").empty();
         $("#count-num").empty();
         clearInterval(timer);
-        $("#result-text").html("<h1>Game Over</h1>");
+        $("#result-text").html("<h1>Game Over! Your Final Score was: </h1>");
         // create a new div for this
-        $("#result-text").append("<h1> Final Score</h1>");
+        // $("#result-text").append("<h1>Final Score</h1>");
         $("#numCorrect").html("<h1>" + triviaGame.numCorrect + "</h1>");
         $("#numIncorrect").html("<h1>" + triviaGame.numIncorrect + "</h1>");
     },
@@ -185,9 +185,8 @@ var triviaGame = {
         // iterate through question array with a variable
         this.correctSolutionIndex = questionArray[triviaGame.currentQuestionCounter].correctAnswer;
         this.currentQuestionCounter++;
-
-        console.log("Index of Current Question Solution = " + questionArray[triviaGame.currentQuestionCounter - 1].correctAnswer);
     },
+    
 
 };
 

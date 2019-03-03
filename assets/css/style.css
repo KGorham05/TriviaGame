@@ -1,3 +1,24 @@
 body {
-    background: #0E0B16;
+    background-image: url("http://1.bp.blogspot.com/-LRNUaNf2UhM/TjUSU15Rj-I/AAAAAAAAB24/GEz3cW1vfQY/s1600/Space+Wallpaper3.jpg");
 }
+
+header {
+    color: white;
+    font-family: 'Monda', sans-serif;
+    padding: 10px;
+}
+
+#game-board {
+    background: #1f3e5a;
+    opacity: .7;
+    font-family: 'Monda', sans-serif;
+}
+
+#start-button {
+    margin: 15px;
+}
+
+#button-container { 
+    margin-bottom: 15px;
+}
+ /* font-family: 'Passion One', cursive; */
