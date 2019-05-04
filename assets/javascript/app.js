@@ -171,7 +171,7 @@ var triviaGame = {
         $("#question-display").empty();
         $("#count-num").empty();
         clearInterval(timer);
-        count = 7;
+        count = 10;
     },
 
     displayCorrectAnswer: function() {
